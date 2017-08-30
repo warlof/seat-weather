@@ -11,23 +11,21 @@ namespace Warlof\Seat\SeatWeather\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 
 class OutdatedPackage extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $packages;
+    public $packages;
 
-    public function __construct(array $packages)
+    public function __construct(Collection $packages)
     {
         $this->packages = $packages;
     }
 
     public function build()
     {
-        return view('seat-weather::email')
-            ->with([
-                'packages' => $this->packages,
-                ]);
+        return $this->view('seat-weather::email');
     }
 }

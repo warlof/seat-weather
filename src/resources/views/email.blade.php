@@ -2,6 +2,6 @@
 
 <ul>
 @foreach($packages as $package)
-    <li><b>{{ $package['vendor'] }}/{{ $package['name'] }}</b> : installed = {{ $package['installed'] }}; latest = {{ $package['latest'] }}</li>
+    <li><b>{{ $package->vendor }}/{{ $package->name }}</b> : installed = {{ $package->installed }}; latest = {{ $package->latest }}</li>
 @endforeach
 </ul>

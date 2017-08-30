@@ -10,16 +10,16 @@ namespace Warlof\Seat\SeatWeather\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-use Seat\Eveapi\Helpers\JobPayloadContainer;
-use Seat\Eveapi\Traits\JobManager;
-use Seat\Services\Helpers\AnalyticsContainer;
-use Seat\Services\Jobs\Analytics;
+//use Seat\Eveapi\Helpers\JobPayloadContainer;
+//use Seat\Eveapi\Traits\JobManager;
+//use Seat\Services\Helpers\AnalyticsContainer;
+//use Seat\Services\Jobs\Analytics;
 use Warlof\Seat\SeatWeather\Helpers\Composer;
 use Warlof\Seat\SeatWeather\Mail\OutdatedPackage;
 
 class UpdateChecker extends Command
 {
-    use JobManager;
+    //use JobManager;
 
     protected $signature = 'seat:weather:check';
 
@@ -30,18 +30,16 @@ class UpdateChecker extends Command
         parent::__construct();
     }
 
-    public function handle(JobPayloadContainer $job)
+    //public function handle(JobPayloadContainer $job)
+    public function handle()
     {
         $composer = new Composer(app('files'), app()->basePath());
         $packages = $composer->getOutdatedPackages();
 
         if (count($packages)) {
 
-            //Mail::send(new OutdatedPackage($packages));
-            Mail::send('seat-weather::email', ['packages' => $packages], function($m){
-                $m->to(setting('warlof.seat-weather.email'), 'Warlof Tutsimo') // TODO : mail notification settings, use SeAT mail ?
-                    ->subject('Outdated SeAT Instance');
-            });
+            Mail::to('warlof.seat-weather.email')->send(new OutdatedPackage($packages));
+            //Mail::to(setting('warlof.seat-weather.email'))->queue(new OutdatedPackage($packages));
 
         }
 
