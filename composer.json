@@ -1,0 +1,23 @@
+{
+  "name": "warlof/seat-weather",
+  "description": "This package allow to monitor the SeAT instance on which it has been installed. It will help to monitor about outdated package and new release by sending automatic mail.",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Warlof Tutsimo",
+      "email": "loic.leuilliot@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Warlof\\Seat\\SeatWeather\\":"src/"
+    }
+  },
+  "require": {
+    "php": ">=7.0",
+    "eveseat/seat":"2.0.*",
+    "guzzlehttp/guzzle": "^6.2"
+  }
+}
