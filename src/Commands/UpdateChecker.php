@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Mail;
 //use Seat\Eveapi\Traits\JobManager;
 //use Seat\Services\Helpers\AnalyticsContainer;
 //use Seat\Services\Jobs\Analytics;
+use Illuminate\Support\Facades\Notification;
 use Warlof\Seat\SeatWeather\Helpers\Composer;
 use Warlof\Seat\SeatWeather\Mail\OutdatedPackage;
+use Warlof\Seat\SeatWeather\Notifications\OutdatedNotification;
 
 class UpdateChecker extends Command
 {
@@ -38,7 +40,7 @@ class UpdateChecker extends Command
 
         if (count($packages)) {
 
-            Mail::to('warlof.seat-weather.email')->send(new OutdatedPackage($packages));
+            Mail::to(setting('warlof.seat-weather.email'))->send(new OutdatedPackage($packages));
             //Mail::to(setting('warlof.seat-weather.email'))->queue(new OutdatedPackage($packages));
 
         }
